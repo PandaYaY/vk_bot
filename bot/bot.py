@@ -25,7 +25,7 @@ def send_message(user_id, message, keyboard=None, message_id=None):
 
 
 def data_message(user_id):
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         user_info = json.load(file)
     str_user_id = str(user_id)
 
@@ -74,7 +74,7 @@ def get_back_keyboard():
 
 
 def write_group(user_id, group):
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         users_group = json.load(file)
 
     if str(user_id) in users_group.keys():
@@ -83,22 +83,22 @@ def write_group(user_id, group):
         user = {"group": group}
         users_group[str(user_id)] = user
 
-    with open('data_files/group_user.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'w', encoding='utf-8') as file:
         json.dump(users_group, file, ensure_ascii=False)
 
 
 def write_meta_group(user_id, group):
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         users_group = json.load(file)
 
     users_group[str(user_id)]["meta_group"] = group
 
-    with open('data_files/group_user.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'w', encoding='utf-8') as file:
         json.dump(users_group, file, ensure_ascii=False)
 
 
 def write_p_group(user_id, group):
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         users_group = json.load(file)
 
     if "p_group" not in users_group[str(user_id)].keys():
@@ -108,16 +108,16 @@ def write_p_group(user_id, group):
 
     users_group[str(user_id)]["p_group"] = sorted(list(set(users_group[str(user_id)]["p_group"])))
 
-    with open('data_files/group_user.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'w', encoding='utf-8') as file:
         json.dump(users_group, file, ensure_ascii=False)
 
 
 def delete_p_group(user_id):
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         users_group = json.load(file)
 
         p_group = users_group[str(user_id)].pop("p_group", None)
-    with open('data_files/group_user.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'w', encoding='utf-8') as file:
         json.dump(users_group, file, ensure_ascii=False)
 
     message = 'Метагруппы ('
@@ -129,7 +129,7 @@ def delete_p_group(user_id):
 def set_p_group_message(user_id):
     message = ''
 
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         user = json.load(file)[str(user_id)]
 
     if "p_group" in user.keys():
@@ -171,7 +171,7 @@ def give_timetable(user_id, text, data):
     weekday_index = days.index(text) % 6
     day = full_day[weekday_index]
 
-    with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
         users_group = json.load(file)
 
     user_id = str(user_id)
@@ -228,7 +228,7 @@ def bot_listen():
                                              count=3)
 
             if text in days:
-                with open('data_files/timetable.json', 'r', encoding='utf-8') as data_file:
+                with open('../data_files/timetable.json', 'r', encoding='utf-8') as data_file:
                     data = json.load(data_file)
                 message = give_timetable(user_id, text, data)
                 keyboard = get_main_keyboard()
@@ -260,7 +260,7 @@ def bot_listen():
 
             elif history['count'] > 2 and check_message(history['items'][1]['text']):
                 if 'пример: "20-ИУ-1"' in history['items'][1]['text']:
-                    with open('data_files/timetable.json', 'r', encoding='utf-8') as data_file:
+                    with open('../data_files/timetable.json', 'r', encoding='utf-8') as data_file:
                         data = json.load(data_file)
                     if text in data.keys():
                         write_group(user_id, text)
@@ -269,7 +269,7 @@ def bot_listen():
                         send_message(user_id, message, keyboard)
                     else:
                         message = 'Такая группа не найдена, повторите попытку\nпример: "20-ИУ-1"'
-                        with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+                        with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
                             users = json.load(file).keys()
                         if str(user_id) in users:
                             keyboard = get_back_keyboard()
@@ -324,7 +324,7 @@ def bot_listen():
                 send_message(user_id, message, keyboard)
 
             else:
-                with open('data_files/group_user.json', 'r', encoding='utf-8') as file:
+                with open('../data_files/group_user.json', 'r', encoding='utf-8') as file:
                     users_group = json.load(file)
                 if str(user_id) in users_group.keys():
                     message = 'Не пон, попробуйте воспользоваться кнопками'
