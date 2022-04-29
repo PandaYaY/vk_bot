@@ -347,8 +347,8 @@ meta_groups = ["20-5-1", "20-5-2", "20-5-3", "20-7-1", "20-7-2", "20-8-1", "20-8
 if __name__ == '__main__':
     while True:
         try:
-            # vk_session = vk_api.VkApi(token=bot_token)
-            vk_session = vk_api.VkApi(token=test_bot_token)
+            vk_session = vk_api.VkApi(token=bot_token)
+            # vk_session = vk_api.VkApi(token=test_bot_token)
 
             longpoll = VkLongPoll(vk_session)
             vk = vk_session.get_api()
