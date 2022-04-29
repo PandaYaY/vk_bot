@@ -15,10 +15,10 @@ from config import main_page
 
 
 def overwriting():
-    with open('data_files/temp_timetable.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/temp_timetable.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
 
-    with open('data_files/timetable.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/timetable.json', 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False)
 
 
@@ -124,10 +124,10 @@ def parsing(module, check_test=None):
     if check_test:
         pprint(week)
         return
-    with open('data_files/temp_timetable.json', 'r', encoding='utf-8') as file:
+    with open('../data_files/temp_timetable.json', 'r', encoding='utf-8') as file:
         data = json.load(file)
     data[group_name] = week
-    with open('data_files/temp_timetable.json', 'w', encoding='utf-8') as file:
+    with open('../data_files/temp_timetable.json', 'w', encoding='utf-8') as file:
         json.dump(data, file, ensure_ascii=False)
     return
 
