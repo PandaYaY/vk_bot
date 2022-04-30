@@ -1,0 +1,18 @@
+version: "1.0"
+
+services:
+  take_lessons:
+    image: lessons
+    volumes:
+      - ./take_lessons:/take_lessons
+      - ./data_files:/take_lessons/data_files
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - 80:80
+
+  bot:
+    image: bot
+    volumes:
+      - ./bot:/bot
+      - ./data_files:/bot/data_files
